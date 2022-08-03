@@ -1,0 +1,30 @@
+okta.oauth2.issuer=${env.ISSUER}
+okta.oauth2.client-id=${env.CLIENT_ID}
+okta.oauth2.client-secret=${env.CLIENT_SECRET}
+.env.filename=.okta.env
+.env.ignoreIfMissing=false
+security.oauth2.sso.loginPath:/authorization-code/callback
+logging.level.org.springframework.web=TRACE
+#spring.jpa.defer-datasource-initialization=true
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+spring.datasource.jdbc-url=${spring.datasource.url}
+spring.datasource.driver-class-name=org.postgresql.Driver
+#spring.datasource.platform=postgres
+spring.datasource.username=
+spring.datasource.password=
+spring.jpa.database=POSTGRESQL
+spring.jpa.show-sql=true
+#spring.jpa.generate-ddl=true
+#spring.jpa.hibernate.ddl-auto=create-drop
+#spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+#logging.level.liquibase = INFO
+spring.liquibase.change-log=classpath:db/changelog/changelog.yaml
+#spring.liquibase.referenceUrl=hibernate:spring:com.example.demo.model?dialect=org.hibernate.dialect.PostgreSQLDialect
+diffChangeLogFile=app/src/main/resources/db/changelog/changelog.xml
+#spring.liquibase.drop-first=false
+#spring.liquibase.user=postgres # Login user of the database to migrate.
+#spring.liquibase.password=postgres # Login password of the database to migrate.
+#spring.liquibase.liquibase-schema= # Schema to use for Liquibase objects.
+#spring.liquibase.liquibase-tablespace= # Tablespace to use for Liquibase objects.
+server.shutdown=graceful
+spring.lifecycle.timeout-per-shutdown-phase=20s
