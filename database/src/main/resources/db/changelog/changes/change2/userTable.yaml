@@ -1,0 +1,60 @@
+databaseChangeLog:
+    - changeSet:
+          id: changes2-1622529886127-1
+          author: chent (generated)
+          changes:
+              - createSequence:
+                    incrementBy: 1
+                    sequenceName: hibernate_sequence2
+                    startValue: 1
+    - changeSet:
+          id: changes2-1622529886127-2
+          author: chent (generated)
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              autoIncrement: true
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                                  primaryKeyName: User2PK
+                              name: id
+                              type: BIGINT
+                        - column:
+                              name: accessToken
+                              type: VARCHAR(255)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: enabled
+                              type: BOOLEAN
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: needCaptcha
+                              type: BOOLEAN
+                        - column:
+                              name: password
+                              type: VARCHAR(255)
+                        - column:
+                              name: refreshToken
+                              type: VARCHAR(255)
+                        - column:
+                              name: tokenExpiration
+                              type: TIMESTAMP WITHOUT TIME ZONE
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: username
+                              type: VARCHAR(255)
+                    tableName: User2
+    - changeSet:
+          id:  changes2-1622529886127-3
+          author: chent (generated)
+          changes:
+              - addUniqueConstraint:
+                    columnNames: username
+                    constraintName: UC_USERUSERNAME2_COL
+                    tableName: User2
+

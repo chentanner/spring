@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - include:
+      file: change1/changes.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: change2/changes.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: createDino/changes.yaml
+      relativeToChangelogFile: true
+

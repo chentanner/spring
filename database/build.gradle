@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+}
+
+jar {
+    archiveClassifier.set('database')
+    archiveBaseName.set('springOkta')
+    manifest {
+        attributes('Implementation-Title': project.name,
+                'Implementation-Version': project.version)
+    }
+}
+
+configurations {
+    database
+}
+artifacts {
+    database jar
+}
+
+
+def zipFileName = 'springOkta-database'
+def srcDirPath = "$projectDir/src/main"
+def distDirPath = "$buildDir/dist"
+
+task distZip(type: Zip,
+        group: 'build',
+        description: 'Zip the Liquibase change sets.') {
+    archiveFileName = zipFileName
+    destinationDirectory = file(distDirPath)
+    from file(srcDirPath)
+    include '**/*.xml'
+    include '**/*.yaml'
+    include '**/*.sql'
+}
+
+task construct (group: "springOkta", dependsOn: "distZip") {
+}
+
+
+
+//apply from: 'liquibase.gradle'

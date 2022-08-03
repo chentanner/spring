@@ -1,0 +1,63 @@
+
+
+plugins {
+    id 'org.springframework.boot' version '2.7.2'
+    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+    id 'java'
+    id "org.liquibase.gradle" version "2.1.1"
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+ext['log4j2.version'] = '2.17.1'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+//    implementation 'com.h2database:h2'
+//    implementation 'org.projectlombok:lombok'
+
+//    implementation 'org.hibernate:hibernate-core:5.4.11.Final'
+//    implementation 'org.yaml:snakeyaml:1.9'
+    implementation 'org.liquibase:liquibase-core'
+    implementation project(path: ':database', configuration: 'database')
+    implementation 'org.liquibase.ext:liquibase-hibernate5:4.3.5'
+
+    implementation 'com.google.guava:guava:30.0-jre'
+    implementation 'com.okta.spring:okta-spring-boot-starter:2.1.5'
+    implementation 'me.paulschwarz:spring-dotenv:2.5.4'
+
+    // Use JUnit Jupiter API for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // Use JUnit Jupiter Engine for testing.
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+
+    runtimeOnly 'org.postgresql:postgresql'
+
+    runtimeOnly files('../../config')
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+}
+
+configurations {
+    //eliminates logback
+    all*.exclude group: 'ch.qos.logback'
+    //eliminates StackOverflowError
+    all*.exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+}
+test {
+    useJUnitPlatform()
+}
+

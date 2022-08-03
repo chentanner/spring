@@ -1,0 +1,62 @@
+dependencies {
+    liquibaseRuntime 'org.springframework.boot:spring-boot-starter'
+    liquibaseRuntime 'org.springframework.boot:spring-boot-starter-data-jpa'
+    liquibaseRuntime 'org.liquibase:liquibase-core'
+    liquibaseRuntime 'org.liquibase:liquibase-groovy-dsl:2.1.1'
+    liquibaseRuntime 'org.liquibase.ext:liquibase-hibernate5:4.3.5'
+    liquibaseRuntime 'javax.persistence:javax.persistence-api:2.2'
+    liquibaseRuntime 'org.yaml:snakeyaml:1.9'
+    liquibaseRuntime 'org.postgresql:postgresql'
+    liquibaseRuntime files('build/classes/java/main')
+    liquibaseRuntime files('build/resources/main')
+    liquibaseRuntime sourceSets.main.runtimeClasspath
+    liquibaseRuntime sourceSets.main.output
+}
+
+diff.dependsOn assemble
+diffChangeLog.dependsOn assemble
+
+liquibase {
+    activities {
+        main {
+//            changeLogFile "$projectDir"+ project.properties['liquibaseprop.changelog']
+            changeLogFile project.properties['liquibaseprop.changelog']
+            url project.properties['datasource.url']
+            username project.properties['datasource.username']
+            password project.properties['datasource.password']
+            driver project.properties['datasource.driver_class_name']
+            referenceUrl "hibernate:spring:" + project.properties['liquibaseprop.domain.package'] + "?dialect=" + project.properties['datasource.dialect']
+        }
+    }
+}
+
+task diffChangelog(type: JavaExec) {
+    group = "liquibase"
+
+    classpath sourceSets.main.runtimeClasspath
+    classpath configurations.liquibaseRuntime
+    main = "liquibase.integration.commandline.Main"
+
+//    args "--changeLogFile=$projectDir"
+    args "--changeLogFile=" + project.properties['liquibaseprop.diffchangelogpath'] + buildTimestamp() +"_changelog.yaml"
+    args "--referenceUrl=hibernate:spring:" + project.properties['liquibaseprop.domain.package'] + "?dialect=" + project.properties['datasource.dialect']
+    args "--username=" + project.properties['datasource.username']
+    args "--password=" + project.properties['datasource.password']
+    args "--url=" + project.properties['datasource.url']
+    args "--driver=" + project.properties['datasource.driver_class_name']
+    args "--logLevel=debug"
+//    args "--referenceDriver=" + project.properties['liquibaseprop.referenceDriver']
+    args "diffChangeLog"
+}
+
+def buildTimestamp() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMddHHmmss')
+    return formattedDate
+}
+
+
+diff.dependsOn compileJava
+update.dependsOn classes
+diffChangeLog.dependsOn compileJava
+diffChangelog.dependsOn compileJava
