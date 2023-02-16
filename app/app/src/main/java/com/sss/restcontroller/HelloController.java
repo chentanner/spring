@@ -9,7 +9,12 @@ import java.security.Principal;
 @RestController
 public class HelloController {
 
-    @GetMapping("/hello")
+    @GetMapping("/public/user/hello")
+    public String publicHello() {
+        return "Hello, Public user!";
+    }
+
+    @GetMapping("/user/hello")
     public String hello(Principal principal) {
         return "Hello, " + principal.getName() + "!";
     }
