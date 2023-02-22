@@ -1,0 +1,50 @@
+package com.sss.app.core.codes.snapshot;
+
+import com.sss.app.core.snapshot.BaseSnapshotCollection;
+import com.sss.app.core.snapshot.ErrorSnapshot;
+
+import java.util.List;
+
+public class CodeItemCollection extends BaseSnapshotCollection<CodeItem> {
+
+    public static String itemType = "application/vnd.sss.codes";
+
+    private String codeFamily;
+
+    public CodeItemCollection() {
+    }
+
+    public CodeItemCollection(ErrorSnapshot error) {
+        super(error);
+    }
+
+
+    public CodeItemCollection(
+            String codeFamily,
+            List<CodeItem> items,
+            long start,
+            int limit,
+            long totalItems) {
+        super(
+                start,
+                totalItems,
+                limit,
+                items);
+        this.codeFamily = codeFamily;
+    }
+
+    @Override
+    public String getItemType() {
+        return itemType;
+    }
+
+    public String getCodeFamily() {
+        return codeFamily;
+    }
+
+    public void setCodeFamily(String codeFamily) {
+        this.codeFamily = codeFamily;
+    }
+
+
+}

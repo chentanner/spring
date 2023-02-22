@@ -44,7 +44,7 @@ public class App implements ApplicationRunner {
         configuration.addAllowedOriginPattern("*");
         configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/*", configuration);
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 }
