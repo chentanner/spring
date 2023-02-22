@@ -14,38 +14,25 @@ public class ApiSecurityChainConfiguration {
 
     @Bean
     public SecurityFilterChain defaultFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests(authorizeRequests ->
-//                        authorizeRequests.antMatchers("/**").permitAll()
-//                                .anyRequest().authenticated())
-//                .csrf().disable();
-
-        applyPublicHttpBasic(http);
-
+        http.cors();
+        applyPermitAllPublic(http);
         applyAuthenticatedHttp(http);
+        http.csrf().disable();
         return http.build();
     }
 
-    private static void applyPublicHttpBasic(HttpSecurity http) throws Exception {
+    private static void applyPermitAllPublic(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authz) -> authz
-                                           .antMatchers("/public/**").permitAll()
-//                        .anyRequest().authenticated()
+                        .antMatchers("/public/**").permitAll()
                 )
                 .httpBasic(withDefaults());
     }
-
-//    @Bean
-//    public SecurityFilterChain authenticatedFilterChain(HttpSecurity http) throws Exception {
-//
-//        return getAuthenticatedHttp(http);
-//    }
 
     private static void applyAuthenticatedHttp(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((auths) -> auths
                                            .antMatchers("/**")
                                            .authenticated()
 //                                           .hasAuthority("SCOPE_message:read")//.permitAll()
-//                        .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults())
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
@@ -55,5 +42,4 @@ public class ApiSecurityChainConfiguration {
     public WebSecurityCustomizer webSecurityIgnoringCustomizer() {
         return (web) -> web.ignoring().antMatchers("/ignore1", "/ignore2");
     }
-
 }
