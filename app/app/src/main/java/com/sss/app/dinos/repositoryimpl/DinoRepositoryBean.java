@@ -8,9 +8,19 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class DinoRepositoryBean extends EntityRepository implements DinoRepository {
+public class DinoRepositoryBean extends EntityRepository<Dino> implements DinoRepository {
+
+    public DinoRepositoryBean() {
+        super(Dino.class);
+    }
+
+    @Override
+    public Dino load(int id) {
+        return super.load(id);
+    }
 
     public List<Dino> fetchAll() {
-        return getBaseDAO().executeQuery(Dino.FETCH_ALL_DINOS);
+        return super.fetchAll(Dino.FETCH_ALL_DINOS);
     }
 }
+

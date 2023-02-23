@@ -1,9 +1,9 @@
 package com.sss.app.core.entity.model;
 
-import com.sss.app.core.entity.repository.BaseRepository;
 import com.sss.app.core.entity.managers.ApplicationContextFactory;
-
-import javax.validation.ValidationException;
+import com.sss.app.core.entity.repository.BaseRepository;
+import com.sss.app.core.exception.ApplicationRuntimeException;
+import com.sss.app.core.exception.ApplicationValidationException;
 
 public abstract class AbstractEntity implements IEntity {
     public abstract Integer getId();
@@ -13,28 +13,29 @@ public abstract class AbstractEntity implements IEntity {
         return false;
     }
 
-    public AbstractEntity save() {
+    public void save() {
         try {
             validate();
-        } catch (ValidationException ignored) {
-
+        } catch (ApplicationValidationException ve) {
+            throw new ApplicationRuntimeException(ve);
         }
         getBaseDAO().save(this);
-        return this;
     }
 
-    public AbstractEntity update() {
+    public void update() {
         try {
             validate();
-        } catch (ValidationException ignored) {
-
+        } catch (ApplicationValidationException ve) {
+            throw new ApplicationRuntimeException(ve);
         }
-        return this;
     }
 
 
-    public AbstractEntity validate() throws ValidationException {
-        return this;
+    public void validate() throws ApplicationValidationException {
+    }
+
+    protected static AuditManager getAuditManager() {
+        return ApplicationContextFactory.getBean(AuditManager.class);
     }
 
     protected static BaseRepository getBaseDAO() {

@@ -51,7 +51,7 @@ public class ApplicationContextFactory {
         return getBean(EntityManagerFactory.class);
     }
 
-    public static EntityManager getCurrentEntityManaagerOnThread() {
+    public static EntityManager getCurrentEntityManagerOnThread() {
         EntityManagerHolder entityManagerHolder = (EntityManagerHolder) TransactionSynchronizationManager.getResource(
                 getEntityManagerFactory());
         if (entityManagerHolder != null)

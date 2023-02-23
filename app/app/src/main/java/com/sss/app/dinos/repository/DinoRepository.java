@@ -6,5 +6,7 @@ import com.sss.app.dinos.model.Dino;
 import java.util.List;
 
 public interface DinoRepository extends IEntityRepository {
+    public Dino load(int id);
+
     public List<Dino> fetchAll();
 }
