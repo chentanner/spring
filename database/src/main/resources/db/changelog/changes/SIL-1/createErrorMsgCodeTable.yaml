@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: SIL-1/createErrorMsgCodeTable
+      author: tanner.chen (generated)
+      changes:
+        - createTable:
+            tableName: ERROR_MSG_CODE
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  type: VARCHAR(40)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: ERROR_MSG_CD_PK

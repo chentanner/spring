@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 @MappedSuperclass
-public abstract class TemporalAbstractEntity extends AbstractEntity implements VersionedEntity, Validatable {
+public abstract class TemporalAbstractEntity extends AbstractIdEntity implements VersionedEntity, Validatable {
     private static Logger logger = LogManager.getLogger(TemporalAbstractEntity.class);
 
     private Boolean isExpired = Boolean.FALSE;
@@ -141,7 +141,7 @@ public abstract class TemporalAbstractEntity extends AbstractEntity implements V
      *
      * @param entities
      */
-    public static void save(List<AbstractEntity> entities) {
+    public static void save(List<AbstractIdEntity> entities) {
         getBaseDAO().save(entities);
     }
 

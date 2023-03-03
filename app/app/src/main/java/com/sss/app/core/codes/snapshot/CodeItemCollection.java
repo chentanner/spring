@@ -1,6 +1,6 @@
 package com.sss.app.core.codes.snapshot;
 
-import com.sss.app.core.entity.snapshot.AbstractErrorSnapshot;
+import com.sss.app.core.entity.snapshot.ErrorResponse;
 import com.sss.app.core.snapshot.BaseSnapshotCollection;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public class CodeItemCollection extends BaseSnapshotCollection<CodeItem> {
     public CodeItemCollection() {
     }
 
-    public CodeItemCollection(AbstractErrorSnapshot error) {
+    public CodeItemCollection(ErrorResponse error) {
         super(error);
     }
 

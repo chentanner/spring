@@ -1,13 +1,11 @@
 databaseChangeLog:
   - include:
-      file: runAlways/preChanges/changes.yaml
+      file: createErrorMsgCodeTable.yaml
       relativeToChangelogFile: true
-
   - include:
-      file: changes/changes.yaml
+      file: createErrorMsgCodeLangTable.yaml
       relativeToChangelogFile: true
-
   - include:
-      file: runAlways/postChanges/changes.yaml
+      file: createFkErrorMsgCodeLangTable.yaml
       relativeToChangelogFile: true
 

@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: SIL-1/createFkErrorMsgCodeLangTable
+      author: tanner.chen (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: ERROR_MSG_CD
+            baseTableName: ERROR_MSG_CODE_LANG
+            constraintName: ERROR_MSG_CODE_LANG_FK01
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: RESTRICT
+            onUpdate: NO ACTION
+            referencedColumnNames: ERROR_MSG_CD
+            referencedTableName: ERROR_MSG_CODE

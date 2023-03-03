@@ -5,7 +5,7 @@ import java.util.Date;
 
 @MappedSuperclass
 @EntityListeners(value = {AuditTableListener.class})
-public abstract class AuditAbstractEntity extends AbstractEntity implements VersionedAuditEntity {
+public abstract class AuditAbstractEntity extends AbstractIdEntity implements VersionedAuditEntity {
     private Boolean isExpired = Boolean.FALSE;
 
 

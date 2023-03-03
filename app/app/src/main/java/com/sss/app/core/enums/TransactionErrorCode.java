@@ -4,6 +4,7 @@ import java.util.*;
 
 public enum TransactionErrorCode {
     SUCCESS("0"),
+    ERROR("APP-000000"),
     JSON_CODE_ITEM_SERIALIZATION("APP-009000"),
 
     HIBERNATE_SESSION("APP-010000"),

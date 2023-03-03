@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: SIL-1/createErrorMsgCodeLangTable
+      author: tanner.chen (generated)
+      changes:
+        - createTable:
+            tableName: ERROR_MSG_CODE_LANG
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  type: VARCHAR(40)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: ERROR_MSG_CD_LANG_PK
+              - column:
+                  name: LOCALE_LANGUAGE_CD
+                  type: VARCHAR(3)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: ERROR_MSG_CD_LANG_PK
+              - column:
+                  name: LOCALE_COUNTRY_CD
+                  type: VARCHAR(2)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: ERROR_MSG_CD_LANG_PK
+              - column:
+                  name: ERROR_MSG_CODE_DESC
+                  type: VARCHAR(1000)
+              - column:
+                  name: CREATE_USER
+                  type: VARCHAR(40)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: CREATE_DTTM
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: MODIFY_USER
+                  type: VARCHAR(40)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: MODIFY_DTTM
+                  type: datetime
+                  constraints:
+                    nullable: false

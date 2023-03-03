@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: errorMessages/reloadGeneric.yaml
+      relativeToChangelogFile: true

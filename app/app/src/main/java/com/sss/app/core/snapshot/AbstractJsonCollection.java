@@ -1,11 +1,13 @@
 package com.sss.app.core.snapshot;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sss.app.core.entity.snapshot.AbstractErrorSnapshot;
+import com.sss.app.core.entity.snapshot.ErrorResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractJsonCollection<T> {
+public abstract class AbstractJsonCollection<T> extends AbstractErrorSnapshot {
 
     protected long start;
     protected long totalItems;
@@ -14,6 +16,14 @@ public abstract class AbstractJsonCollection<T> {
     protected List<T> items = new ArrayList<>();
 
     public AbstractJsonCollection() {
+    }
+
+    public AbstractJsonCollection(WarningSnapshot warning) {
+        super(warning);
+    }
+
+    public AbstractJsonCollection(ErrorResponse error) {
+        super(error);
     }
 
     public AbstractJsonCollection(

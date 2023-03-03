@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: SIL-1/createErrorMsgCodeLangTable
+      author: tanner.chen (generated)
+      runAlways: true
+      runOnChange: true
+      changes:
+        - delete:
+            tableName: ERROR_MSG_CODE_LANG
+            where: ERROR_MSG_CD IN ('0')
+        - delete:
+            tableName: ERROR_MSG_CODE
+            where: ERROR_MSG_CD IN ('0')
+        - insert:
+            tableName: ERROR_MSG_CODE
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "0"
+        - insert:
+            tableName: ERROR_MSG_CODE_LANG
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "0"
+              - column:
+                  name: ERROR_MSG_CODE_DESC
+                  value: "Success: transaction was successful"
+              - column:
+                  name: LOCALE_LANGUAGE_CD
+                  value: "en"
+              - column:
+                  name: LOCALE_COUNTRY_CD
+                  value: "CA"
+              - column:
+                  name: CREATE_DTTM
+                  value: "now()"
+              - column:
+                  name: CREATE_USER
+                  value: app
+              - column:
+                  name: MODIFY_DTTM
+                  value: "now()"
+              - column:
+                  name: MODIFY_USER
+                  value: app
