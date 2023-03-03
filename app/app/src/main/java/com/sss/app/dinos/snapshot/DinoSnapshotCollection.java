@@ -1,7 +1,7 @@
 package com.sss.app.dinos.snapshot;
 
+import com.sss.app.core.entity.snapshot.AbstractErrorSnapshot;
 import com.sss.app.core.snapshot.BaseSnapshotCollection;
-import com.sss.app.core.snapshot.ErrorSnapshot;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class DinoSnapshotCollection extends BaseSnapshotCollection<DinoSnapshot>
     public DinoSnapshotCollection() {
     }
 
-    public DinoSnapshotCollection(ErrorSnapshot error) {
+    public DinoSnapshotCollection(AbstractErrorSnapshot error) {
         super(error);
     }
 

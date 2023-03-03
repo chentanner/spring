@@ -6,4 +6,6 @@ public interface VersionedAuditEntity {
     public void setEntityVersion(Long entityVersion);
 
     public Long getVersion();
+
+    public Boolean getIsExpired();
 }

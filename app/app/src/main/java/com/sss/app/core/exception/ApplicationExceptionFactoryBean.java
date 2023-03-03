@@ -2,7 +2,7 @@ package com.sss.app.core.exception;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sss.app.core.snapshot.ErrorResponse;
+import com.sss.app.core.entity.snapshot.ErrorResponse;
 import com.sss.app.core.enums.TransactionErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -8,10 +8,6 @@ import com.sss.app.core.exception.ApplicationValidationException;
 public abstract class AbstractEntity implements IEntity {
     public abstract Integer getId();
 
-    @Override
-    public Boolean isExpired() {
-        return false;
-    }
 
     public void save() {
         try {

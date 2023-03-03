@@ -12,13 +12,18 @@ public enum TransactionErrorCode {
     STALE_UPDATE_VERSION_FAIL("APP-010101"),
     ILLEGAL_UPDATE_EXPIRED_ENTITY("APP-010102"),
     DELETE_FAILED("APP-010103"),
+    NULL_ENTITY_ENCOUNTERED("APP-010104"),
+    BAD_ENTITY_ID("APP-010105"),
+    BAD_BUSINESS_KEY("APP-010106"),
+
 
     STATELESS_SESSION_CREATE_FAILED_EXISTS("APP-010200"),
 
     WEB_REST_CLIENT_FAILED("APP-010300"),
     MISSING_BUSINESS_KEY("APP-100100"),
-    BAD_BUSINESS_KEY("APP-100101");
-    private String code;
+    MISSING_CODE("APP-1001500"),
+    ;
+    private final String code;
 
     private static final Map<String, TransactionErrorCode> lookup
             = new HashMap<String, TransactionErrorCode>();
@@ -41,7 +46,7 @@ public enum TransactionErrorCode {
     }
 
     public static List<String> getTransactionCodes() {
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
         for (TransactionErrorCode c : EnumSet.allOf(TransactionErrorCode.class))
             list.add(c.getCode());
         return list;

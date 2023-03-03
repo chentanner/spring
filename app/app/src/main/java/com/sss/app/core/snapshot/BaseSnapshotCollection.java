@@ -1,16 +1,18 @@
 package com.sss.app.core.snapshot;
 
+import com.sss.app.core.entity.snapshot.AbstractErrorSnapshot;
+
 import java.util.List;
 
 public abstract class BaseSnapshotCollection<T> extends AbstractJsonCollection<T> {
 
-    private ErrorSnapshot error;
+    private AbstractErrorSnapshot error;
     private WarningSnapshot warning;
 
     public BaseSnapshotCollection() {
     }
 
-    public BaseSnapshotCollection(ErrorSnapshot error) {
+    public BaseSnapshotCollection(AbstractErrorSnapshot error) {
         this.error = error;
     }
 
@@ -32,11 +34,11 @@ public abstract class BaseSnapshotCollection<T> extends AbstractJsonCollection<T
         this.warning = warning;
     }
 
-    public ErrorSnapshot getError() {
+    public AbstractErrorSnapshot getError() {
         return error;
     }
 
-    public void setError(ErrorSnapshot error) {
+    public void setError(AbstractErrorSnapshot error) {
         this.error = error;
     }
 

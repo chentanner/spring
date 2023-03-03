@@ -1,5 +1,7 @@
 package com.sss.app.core.snapshot;
 
+import com.sss.app.core.entity.snapshot.AbstractErrorSnapshot;
+
 import java.util.List;
 
 public class SnapshotListItemCollection extends BaseSnapshotCollection<SnapshotListItem> {
@@ -13,7 +15,7 @@ public class SnapshotListItemCollection extends BaseSnapshotCollection<SnapshotL
         return itemType;
     }
 
-    public SnapshotListItemCollection(ErrorSnapshot error) {
+    public SnapshotListItemCollection(AbstractErrorSnapshot error) {
         super(error);
     }
 

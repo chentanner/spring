@@ -1,5 +1,15 @@
 package com.sss.app.core.entity.model;
 
-public interface VersionedEntity {
+import com.sss.app.core.entity.enums.EntityState;
+
+public interface VersionedEntity extends IEntity {
     public Long getVersion();
+
+    public boolean isVersioned();
+
+    public void setVersion(long version);
+
+    public EntityState getEntityState();
+
+    public Boolean getIsExpired();
 }

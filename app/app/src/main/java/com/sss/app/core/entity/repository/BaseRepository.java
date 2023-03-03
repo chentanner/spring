@@ -1,6 +1,5 @@
 package com.sss.app.core.entity.repository;
 
-import com.sss.app.core.entity.managers.ApplicationContextFactory;
 import com.sss.app.core.entity.model.AbstractEntity;
 import com.sss.app.core.entity.model.AuditAbstractEntity;
 import com.sss.app.core.entity.model.ExpiryPolicy;
@@ -197,8 +196,7 @@ public class BaseRepository {
 
     public int executeUpdate(String queryText,
                              QueryParameters parameters) {
-        EntityManager masterEntityMgr = ApplicationContextFactory.getCurrentEntityManagerOnThread();
-        Query query = masterEntityMgr.createQuery(queryText);
+        Query query = entityManager.createQuery(queryText);
         for (QueryParameter parameter : parameters) {
             query.setParameter(parameter.getName(), parameter.getValue());
         }
@@ -207,8 +205,7 @@ public class BaseRepository {
 
     public int executeNativeUpdate(String queryText,
                                    QueryParameters parameters) {
-        EntityManager masterEntityMgr = ApplicationContextFactory.getCurrentEntityManagerOnThread();
-        Query query = masterEntityMgr.createNativeQuery(queryText);
+        Query query = entityManager.createNativeQuery(queryText);
         for (QueryParameter parameter : parameters) {
             query.setParameter(parameter.getName(), parameter.getValue());
         }

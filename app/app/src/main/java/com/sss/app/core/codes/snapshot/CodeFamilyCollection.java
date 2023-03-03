@@ -1,8 +1,8 @@
 package com.sss.app.core.codes.snapshot;
 
 
+import com.sss.app.core.entity.snapshot.AbstractErrorSnapshot;
 import com.sss.app.core.snapshot.BaseSnapshotCollection;
-import com.sss.app.core.snapshot.ErrorSnapshot;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class CodeFamilyCollection extends BaseSnapshotCollection<String> {
     public CodeFamilyCollection() {
     }
 
-    public CodeFamilyCollection(ErrorSnapshot errorCode) {
+    public CodeFamilyCollection(AbstractErrorSnapshot errorCode) {
         super(errorCode);
     }
 
