@@ -10,7 +10,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Service(value = ErrorMessageManager.BEAN_NAME)
 public class ApplicationErrorMessageManager implements ErrorMessageManager {
-
     private final ConcurrentHashMap<String, ErrorMessageProjection> errorMap = new ConcurrentHashMap<>(2000);
 
     @Override
