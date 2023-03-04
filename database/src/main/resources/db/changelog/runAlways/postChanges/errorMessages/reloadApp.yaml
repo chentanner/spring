@@ -11,6 +11,7 @@ databaseChangeLog:
         - delete:
             tableName: ERROR_MSG_CODE
             where: ERROR_MSG_CD LIKE 'APP-%'
+
         - insert:
             tableName: ERROR_MSG_CODE
             columns:
@@ -26,6 +27,482 @@ databaseChangeLog:
               - column:
                   name: ERROR_MSG_CODE_DESC
                   value: "Error"
+              - column:
+                  name: LOCALE_LANGUAGE_CD
+                  value: "en"
+              - column:
+                  name: LOCALE_COUNTRY_CD
+                  value: "CA"
+              - column:
+                  name: CREATE_DTTM
+                  value: "now()"
+              - column:
+                  name: CREATE_USER
+                  value: app
+              - column:
+                  name: MODIFY_DTTM
+                  value: "now()"
+              - column:
+                  name: MODIFY_USER
+                  value: app
+
+        - insert:
+            tableName: ERROR_MSG_CODE
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-009000"
+        - insert:
+            tableName: ERROR_MSG_CODE_LANG
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-009000"
+              - column:
+                  name: ERROR_MSG_CODE_DESC
+                  value: "Error: JSON code serialization"
+              - column:
+                  name: LOCALE_LANGUAGE_CD
+                  value: "en"
+              - column:
+                  name: LOCALE_COUNTRY_CD
+                  value: "CA"
+              - column:
+                  name: CREATE_DTTM
+                  value: "now()"
+              - column:
+                  name: CREATE_USER
+                  value: app
+              - column:
+                  name: MODIFY_DTTM
+                  value: "now()"
+              - column:
+                  name: MODIFY_USER
+                  value: app
+
+        - insert:
+            tableName: ERROR_MSG_CODE
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010000"
+        - insert:
+            tableName: ERROR_MSG_CODE_LANG
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010000"
+              - column:
+                  name: ERROR_MSG_CODE_DESC
+                  value: "Error: Hibernate session error"
+              - column:
+                  name: LOCALE_LANGUAGE_CD
+                  value: "en"
+              - column:
+                  name: LOCALE_COUNTRY_CD
+                  value: "CA"
+              - column:
+                  name: CREATE_DTTM
+                  value: "now()"
+              - column:
+                  name: CREATE_USER
+                  value: app
+              - column:
+                  name: MODIFY_DTTM
+                  value: "now()"
+              - column:
+                  name: MODIFY_USER
+                  value: app
+
+        - insert:
+            tableName: ERROR_MSG_CODE
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010100"
+        - insert:
+            tableName: ERROR_MSG_CODE_LANG
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010100"
+              - column:
+                  name: ERROR_MSG_CODE_DESC
+                  value: "Error: More than one item found"
+              - column:
+                  name: LOCALE_LANGUAGE_CD
+                  value: "en"
+              - column:
+                  name: LOCALE_COUNTRY_CD
+                  value: "CA"
+              - column:
+                  name: CREATE_DTTM
+                  value: "now()"
+              - column:
+                  name: CREATE_USER
+                  value: app
+              - column:
+                  name: MODIFY_DTTM
+                  value: "now()"
+              - column:
+                  name: MODIFY_USER
+                  value: app
+
+        - insert:
+            tableName: ERROR_MSG_CODE
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010101"
+        - insert:
+            tableName: ERROR_MSG_CODE_LANG
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010101"
+              - column:
+                  name: ERROR_MSG_CODE_DESC
+                  value: "Error: Cannot update stale version"
+              - column:
+                  name: LOCALE_LANGUAGE_CD
+                  value: "en"
+              - column:
+                  name: LOCALE_COUNTRY_CD
+                  value: "CA"
+              - column:
+                  name: CREATE_DTTM
+                  value: "now()"
+              - column:
+                  name: CREATE_USER
+                  value: app
+              - column:
+                  name: MODIFY_DTTM
+                  value: "now()"
+              - column:
+                  name: MODIFY_USER
+                  value: app
+
+        - insert:
+            tableName: ERROR_MSG_CODE
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010102"
+        - insert:
+            tableName: ERROR_MSG_CODE_LANG
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010102"
+              - column:
+                  name: ERROR_MSG_CODE_DESC
+                  value: "Error: Cannot update an expired item"
+              - column:
+                  name: LOCALE_LANGUAGE_CD
+                  value: "en"
+              - column:
+                  name: LOCALE_COUNTRY_CD
+                  value: "CA"
+              - column:
+                  name: CREATE_DTTM
+                  value: "now()"
+              - column:
+                  name: CREATE_USER
+                  value: app
+              - column:
+                  name: MODIFY_DTTM
+                  value: "now()"
+              - column:
+                  name: MODIFY_USER
+                  value: app
+
+        - insert:
+            tableName: ERROR_MSG_CODE
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010103"
+        - insert:
+            tableName: ERROR_MSG_CODE_LANG
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010103"
+              - column:
+                  name: ERROR_MSG_CODE_DESC
+                  value: "Error: Failed to delete"
+              - column:
+                  name: LOCALE_LANGUAGE_CD
+                  value: "en"
+              - column:
+                  name: LOCALE_COUNTRY_CD
+                  value: "CA"
+              - column:
+                  name: CREATE_DTTM
+                  value: "now()"
+              - column:
+                  name: CREATE_USER
+                  value: app
+              - column:
+                  name: MODIFY_DTTM
+                  value: "now()"
+              - column:
+                  name: MODIFY_USER
+                  value: app
+
+        - insert:
+            tableName: ERROR_MSG_CODE
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010104"
+        - insert:
+            tableName: ERROR_MSG_CODE_LANG
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010104"
+              - column:
+                  name: ERROR_MSG_CODE_DESC
+                  value: "Error: Null entity"
+              - column:
+                  name: LOCALE_LANGUAGE_CD
+                  value: "en"
+              - column:
+                  name: LOCALE_COUNTRY_CD
+                  value: "CA"
+              - column:
+                  name: CREATE_DTTM
+                  value: "now()"
+              - column:
+                  name: CREATE_USER
+                  value: app
+              - column:
+                  name: MODIFY_DTTM
+                  value: "now()"
+              - column:
+                  name: MODIFY_USER
+                  value: app
+
+        - insert:
+            tableName: ERROR_MSG_CODE
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010105"
+        - insert:
+            tableName: ERROR_MSG_CODE_LANG
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010105"
+              - column:
+                  name: ERROR_MSG_CODE_DESC
+                  value: "Error: Missing entity id"
+              - column:
+                  name: LOCALE_LANGUAGE_CD
+                  value: "en"
+              - column:
+                  name: LOCALE_COUNTRY_CD
+                  value: "CA"
+              - column:
+                  name: CREATE_DTTM
+                  value: "now()"
+              - column:
+                  name: CREATE_USER
+                  value: app
+              - column:
+                  name: MODIFY_DTTM
+                  value: "now()"
+              - column:
+                  name: MODIFY_USER
+                  value: app
+
+        - insert:
+            tableName: ERROR_MSG_CODE
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010106"
+        - insert:
+            tableName: ERROR_MSG_CODE_LANG
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010106"
+              - column:
+                  name: ERROR_MSG_CODE_DESC
+                  value: "Error: Invalid business key"
+              - column:
+                  name: LOCALE_LANGUAGE_CD
+                  value: "en"
+              - column:
+                  name: LOCALE_COUNTRY_CD
+                  value: "CA"
+              - column:
+                  name: CREATE_DTTM
+                  value: "now()"
+              - column:
+                  name: CREATE_USER
+                  value: app
+              - column:
+                  name: MODIFY_DTTM
+                  value: "now()"
+              - column:
+                  name: MODIFY_USER
+                  value: app
+
+        - insert:
+            tableName: ERROR_MSG_CODE
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010200"
+        - insert:
+            tableName: ERROR_MSG_CODE_LANG
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010200"
+              - column:
+                  name: ERROR_MSG_CODE_DESC
+                  value: "Error: Failed to create session, one already exists"
+              - column:
+                  name: LOCALE_LANGUAGE_CD
+                  value: "en"
+              - column:
+                  name: LOCALE_COUNTRY_CD
+                  value: "CA"
+              - column:
+                  name: CREATE_DTTM
+                  value: "now()"
+              - column:
+                  name: CREATE_USER
+                  value: app
+              - column:
+                  name: MODIFY_DTTM
+                  value: "now()"
+              - column:
+                  name: MODIFY_USER
+                  value: app
+
+        - insert:
+            tableName: ERROR_MSG_CODE
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010201"
+        - insert:
+            tableName: ERROR_MSG_CODE_LANG
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010201"
+              - column:
+                  name: ERROR_MSG_CODE_DESC
+                  value: "Error: Webclient timed out"
+              - column:
+                  name: LOCALE_LANGUAGE_CD
+                  value: "en"
+              - column:
+                  name: LOCALE_COUNTRY_CD
+                  value: "CA"
+              - column:
+                  name: CREATE_DTTM
+                  value: "now()"
+              - column:
+                  name: CREATE_USER
+                  value: app
+              - column:
+                  name: MODIFY_DTTM
+                  value: "now()"
+              - column:
+                  name: MODIFY_USER
+                  value: app
+
+        - insert:
+            tableName: ERROR_MSG_CODE
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010300"
+        - insert:
+            tableName: ERROR_MSG_CODE_LANG
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010300"
+              - column:
+                  name: ERROR_MSG_CODE_DESC
+                  value: "Error: Invalid application setting key"
+              - column:
+                  name: LOCALE_LANGUAGE_CD
+                  value: "en"
+              - column:
+                  name: LOCALE_COUNTRY_CD
+                  value: "CA"
+              - column:
+                  name: CREATE_DTTM
+                  value: "now()"
+              - column:
+                  name: CREATE_USER
+                  value: app
+              - column:
+                  name: MODIFY_DTTM
+                  value: "now()"
+              - column:
+                  name: MODIFY_USER
+                  value: app
+
+        - insert:
+            tableName: ERROR_MSG_CODE
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010301"
+        - insert:
+            tableName: ERROR_MSG_CODE_LANG
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010301"
+              - column:
+                  name: ERROR_MSG_CODE_DESC
+                  value: "Error: Invalid application setting key length"
+              - column:
+                  name: LOCALE_LANGUAGE_CD
+                  value: "en"
+              - column:
+                  name: LOCALE_COUNTRY_CD
+                  value: "CA"
+              - column:
+                  name: CREATE_DTTM
+                  value: "now()"
+              - column:
+                  name: CREATE_USER
+                  value: app
+              - column:
+                  name: MODIFY_DTTM
+                  value: "now()"
+              - column:
+                  name: MODIFY_USER
+                  value: app
+
+        - insert:
+            tableName: ERROR_MSG_CODE
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010302"
+        - insert:
+            tableName: ERROR_MSG_CODE_LANG
+            columns:
+              - column:
+                  name: ERROR_MSG_CD
+                  value: "APP-010302"
+              - column:
+                  name: ERROR_MSG_CODE_DESC
+                  value: "Error: Invalid application setting value"
               - column:
                   name: LOCALE_LANGUAGE_CD
                   value: "en"

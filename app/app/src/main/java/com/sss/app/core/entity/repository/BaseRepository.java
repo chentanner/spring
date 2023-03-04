@@ -1,9 +1,6 @@
 package com.sss.app.core.entity.repository;
 
-import com.sss.app.core.entity.model.AbstractIdEntity;
-import com.sss.app.core.entity.model.AuditAbstractEntity;
-import com.sss.app.core.entity.model.ExpiryPolicy;
-import com.sss.app.core.entity.model.TemporalAbstractEntity;
+import com.sss.app.core.entity.model.*;
 import com.sss.app.core.enums.TransactionErrorCode;
 import com.sss.app.core.exception.ApplicationRuntimeException;
 import com.sss.app.core.query.QueryParameter;
@@ -254,7 +251,7 @@ public class BaseRepository {
         entities.forEach(AbstractIdEntity::save);
     }
 
-    public void save(AbstractIdEntity entity) {
+    public void save(AbstractEntity entity) {
         entityManager.persist(entity);
     }
 
@@ -267,11 +264,7 @@ public class BaseRepository {
             entityManager.persist(history);
     }
 
-    public void delete(AbstractIdEntity entity) {
-        entityManager.remove(entity);
-    }
-
-    public void delete(Object entity) {
+    public void delete(AbstractEntity entity) {
         entityManager.remove(entity);
     }
 

@@ -22,12 +22,6 @@ public class BusinessKey implements Serializable {
         addComponent(id.toString());
     }
 
-    public static BusinessKey createNullKey() {
-        BusinessKey key = new BusinessKey();
-        key.setToNull();
-        return key;
-    }
-
     public void setToNull() {
         value = IS_NULL;
     }

@@ -54,7 +54,7 @@ public abstract class BaseRestController {
         }
     }
 
-    protected <T extends AbstractErrorSnapshot> ResponseEntity<T> assembleApplicationControlResultResponseEntity(T result) {
+    protected <T extends AbstractErrorSnapshot> ResponseEntity<T> assembleApplicationSettingResultResponseEntity(T result) {
         HttpHeaders headers = getHeaders();
 
         if (result == null) {
@@ -81,7 +81,7 @@ public abstract class BaseRestController {
         return errorMessageManager.getErrorMessage(errorCode);
     }
 
-    protected ResponseEntity handleBindingErrors(
+    protected <T> ResponseEntity<T> handleBindingErrors(
             BindingResult bindingResult,
             String message
     ) {

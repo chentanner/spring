@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: SIL-2/createAppSettingTable
+      author: tanner.chen (generated)
+      changes:
+        - createTable:
+            tableName: APPLICATION_SETTING
+            columns:
+              - column:
+                  name: KEY
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: APPLICATION_SETTING_PK
+              - column:
+                  name: VALUE
+                  type: VARCHAR(1000)

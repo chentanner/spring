@@ -17,7 +17,7 @@ public class ApplicationSettingSnapshotCollection {
     private boolean wasSuccessful = true;
     private boolean isPermissionException = false;
 
-    private List<ApplicationSettingSnapshot> controls = new ArrayList<>();
+    private List<ApplicationSettingSnapshot> settings = new ArrayList<>();
 
     public ApplicationSettingSnapshotCollection() {
     }
@@ -40,14 +40,14 @@ public class ApplicationSettingSnapshotCollection {
             int limit,
             long totalItems) {
 
-        this.controls = snapshots;
+        this.settings = snapshots;
         this.totalItems = totalItems;
         this.start = start;
         this.limit = limit;
     }
 
     public List<ApplicationSettingSnapshot> getItems() {
-        return controls;
+        return settings;
     }
 
 
@@ -69,7 +69,7 @@ public class ApplicationSettingSnapshotCollection {
 
     @JsonIgnore
     public long getCount() {
-        return controls.size();
+        return settings.size();
     }
 
     public int getLimit() {

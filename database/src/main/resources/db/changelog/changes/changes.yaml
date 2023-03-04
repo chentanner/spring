@@ -11,4 +11,7 @@ databaseChangeLog:
   - include:
       file: "SIL-1/changes.yaml"
       relativeToChangelogFile: true
+  - include:
+      file: "SIL-2/changes.yaml"
+      relativeToChangelogFile: true
 

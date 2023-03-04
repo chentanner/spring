@@ -3,27 +3,37 @@ package com.sss.app.core.enums;
 import java.util.*;
 
 public enum TransactionErrorCode {
-    SUCCESS("0"),
-    ERROR("APP-000000"),
-    JSON_CODE_ITEM_SERIALIZATION("APP-009000"),
+    // @formatter:off stops intellij formatter from removing the white spaces
+    SUCCESS                                                 ("0"),
+    ERROR                                                   ("APP-000000"),
+    JSON_CODE_ITEM_SERIALIZATION                            ("APP-009000"),
 
-    HIBERNATE_SESSION("APP-010000"),
+    HIBERNATE_SESSION                                       ("APP-010000"),
 
-    MORE_THAN_ONE_OBJECT_RETURNED_QUERY("APP-010100"),
-    STALE_UPDATE_VERSION_FAIL("APP-010101"),
-    ILLEGAL_UPDATE_EXPIRED_ENTITY("APP-010102"),
-    DELETE_FAILED("APP-010103"),
-    NULL_ENTITY_ENCOUNTERED("APP-010104"),
-    BAD_ENTITY_ID("APP-010105"),
-    BAD_BUSINESS_KEY("APP-010106"),
+    MORE_THAN_ONE_OBJECT_RETURNED_QUERY                     ("APP-010100"),
+    STALE_UPDATE_VERSION_FAIL                               ("APP-010101"),
+    ILLEGAL_UPDATE_EXPIRED_ENTITY                           ("APP-010102"),
+    DELETE_FAILED                                           ("APP-010103"),
+    NULL_ENTITY_ENCOUNTERED                                 ("APP-010104"),
+    BAD_ENTITY_ID                                           ("APP-010105"),
+    BAD_BUSINESS_KEY                                        ("APP-010106"),
+
+    STATELESS_SESSION_CREATE_FAILED_EXISTS                  ("APP-010200"),
+
+    WEB_REST_CLIENT_FAILED                                  ("APP-010201"),
+
+    INVALID_APP_SETTING_KEY                                 ("APP-010300"),
+    INVALID_APP_SETTING_KEY_LENGTH                          ("APP-010301"),
+    INVALID_APP_SETTING_VALUE                               ("APP-010302"),
 
 
-    STATELESS_SESSION_CREATE_FAILED_EXISTS("APP-010200"),
 
-    WEB_REST_CLIENT_FAILED("APP-010300"),
-    MISSING_BUSINESS_KEY("APP-100100"),
-    MISSING_CODE("APP-1001500"),
+
+    MISSING_BUSINESS_KEY                                    ("APP-100100"),
+    MISSING_CODE                                            ("APP-100150"),
     ;
+    // @formatter:on
+
     private final String code;
 
     private static final Map<String, TransactionErrorCode> lookup
