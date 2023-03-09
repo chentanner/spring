@@ -43,17 +43,6 @@ public abstract class AuditAbstractEntity extends AbstractIdEntity implements Ve
 
     public abstract void copyFrom(TemporalAbstractEntity entity);
 
-    protected void recordHistory() {
-        this.setIsRecentHistory(true); //
-        getBaseDAO().recordHistory(this);
-    }
-
-
-    public void prepareForImport(AuditAbstractEntity entity) {
-        if (getParent().getVersion() == null) {
-            getParent().setVersion(0L);
-        }
-    }
 //
 //    @Transient
 //    public EntityMode getEntityMode() {

@@ -26,6 +26,15 @@ public enum TransactionErrorCode {
     INVALID_APP_SETTING_KEY_LENGTH                          ("APP-010301"),
     INVALID_APP_SETTING_VALUE                               ("APP-010302"),
 
+    INVALID_DATE_STRING                                     ("APP-010400"),
+    INVALID_DATE_TIME_STRING                                ("APP-010401"),
+    INVALID_DATE_TIME_MILLIS_STRING                         ("APP-010402"),
+    UNBALANCED_BRACKETS                                     ("APP-010403"),
+
+    INVALID_QUERY_PROPERTY                                  ("APP-010500"),
+    QUERY_PROPERTY_DOES_NOT_EXIST                           ("APP-010501"),
+    INVALID_QUERY_TEXT_INVALID_WHERE                        ("APP-010502"),
+    UNSUPPORTED_ELEMENT                                     ("APP-010503"),
 
 
 

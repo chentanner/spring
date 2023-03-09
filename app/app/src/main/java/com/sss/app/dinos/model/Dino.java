@@ -1,5 +1,6 @@
 package com.sss.app.dinos.model;
 
+import com.sss.app.core.entity.model.AbstractIdEntity;
 import com.sss.app.dinos.snapshot.DinoDetail;
 
 import javax.persistence.*;
@@ -12,11 +13,11 @@ import javax.persistence.*;
                 query = "select dino from Dino dino"
         )
 })
-public class Dino {
+public class Dino extends AbstractIdEntity {
     public static final String FETCH_ALL_DINOS = "fetch_all_dinos";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Embedded
     private DinoDetail detail;
@@ -24,11 +25,11 @@ public class Dino {
     public Dino() {
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -46,5 +47,11 @@ public class Dino {
                 "id=" + id +
                 ", detail=" + detail +
                 '}';
+    }
+
+    @Override
+    @Transient
+    public String getEntityName() {
+        return "Dino";
     }
 }

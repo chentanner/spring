@@ -85,6 +85,12 @@ public class ApplicationSetting extends AbstractEntity {
         }
     }
 
+    @Override
+    @Transient
+    public String getEntityName() {
+        return "ApplicationSetting";
+    }
+
     public void save() {
         try {
             validate();
@@ -92,15 +98,6 @@ public class ApplicationSetting extends AbstractEntity {
             throw new ApplicationRuntimeException(e.getErrorCode());
         }
         getBaseDAO().save(this);
-    }
-
-    protected void update() {
-        try {
-            validate();
-        } catch (ApplicationValidationException e) {
-            throw new ApplicationRuntimeException(e.getErrorCode());
-        }
-        getBaseDAO().flush();
     }
 
     public static void saveUpdate(ApplicationSettingSnapshot ApplicationSettingSnapshot) {

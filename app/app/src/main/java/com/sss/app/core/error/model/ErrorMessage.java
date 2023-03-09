@@ -2,10 +2,7 @@ package com.sss.app.core.error.model;
 
 import com.sss.app.core.entity.model.AbstractEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "ERROR_MSG_CODE")
@@ -23,4 +20,9 @@ public class ErrorMessage extends AbstractEntity {
         this.errorCode = errorCode;
     }
 
+    @Override
+    @Transient
+    public String getEntityName() {
+        return "ErrorMessage";
+    }
 }

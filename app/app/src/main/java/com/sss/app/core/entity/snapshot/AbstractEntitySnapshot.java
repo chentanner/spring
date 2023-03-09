@@ -1,11 +1,10 @@
 package com.sss.app.core.entity.snapshot;
 
 import com.sss.app.core.entity.enums.EntityState;
-import com.sss.app.core.entity.model.VersionedEntity;
 
 import java.io.Serializable;
 
-public abstract class AbstractEntitySnapshot extends AbstractIdSnapshot implements Serializable, VersionedEntity {
+public abstract class AbstractEntitySnapshot extends AbstractIdSnapshot implements Serializable, VersionedEntitySnapshot {
     private final long DEFAULT_VERSION = -1L;
     protected Long version = DEFAULT_VERSION;
 

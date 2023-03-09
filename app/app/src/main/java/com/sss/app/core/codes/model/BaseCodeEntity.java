@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Transient;
 
-public class BaseCodeEntity extends AbstractEntity implements CodeEntity {
+public abstract class BaseCodeEntity extends AbstractEntity implements CodeEntity {
 
     private CodeEntityPk primaryKey = new CodeEntityPk();
 

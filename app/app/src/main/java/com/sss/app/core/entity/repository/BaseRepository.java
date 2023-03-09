@@ -1,6 +1,9 @@
 package com.sss.app.core.entity.repository;
 
-import com.sss.app.core.entity.model.*;
+import com.sss.app.core.entity.model.AbstractEntity;
+import com.sss.app.core.entity.model.AbstractIdEntity;
+import com.sss.app.core.entity.model.AuditAbstractEntity;
+import com.sss.app.core.entity.model.ExpiryPolicy;
 import com.sss.app.core.enums.TransactionErrorCode;
 import com.sss.app.core.exception.ApplicationRuntimeException;
 import com.sss.app.core.query.QueryParameter;
@@ -255,11 +258,7 @@ public class BaseRepository {
         entityManager.persist(entity);
     }
 
-    public void recordHistory(AuditAbstractEntity audit) {
-        entityManager.persist(audit);
-    }
-
-    public void saveWithHistory(TemporalAbstractEntity abstractEntity, AuditAbstractEntity history) {
+    public void saveWithHistory(AuditAbstractEntity history) {
         if (history != null)
             entityManager.persist(history);
     }

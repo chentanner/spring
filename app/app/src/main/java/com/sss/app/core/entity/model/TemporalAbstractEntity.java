@@ -1,6 +1,7 @@
 package com.sss.app.core.entity.model;
 
-import com.sss.app.core.entity.snapshot.BusinessKey;
+import com.sss.app.core.entity.enums.EntityState;
+import com.sss.app.core.entity.managers.ApplicationContextFactory;
 import com.sss.app.core.entity.snapshot.IEntitySnapshot;
 import com.sss.app.core.enums.TransactionErrorCode;
 import com.sss.app.core.exception.ApplicationRuntimeException;
@@ -14,11 +15,11 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+import java.util.Objects;
 
 @MappedSuperclass
 public abstract class TemporalAbstractEntity extends AbstractIdEntity implements VersionedEntity, Validatable {
-    private static Logger logger = LogManager.getLogger(TemporalAbstractEntity.class);
+    private static final Logger logger = LogManager.getLogger();
 
     private Boolean isExpired = Boolean.FALSE;
     private Long version;
@@ -26,53 +27,59 @@ public abstract class TemporalAbstractEntity extends AbstractIdEntity implements
     private AuditAbstractEntity recentHistory;
     private AuditAbstractEntity newHistory;
 
-    @Transient
-    protected boolean ignoreExpiredOnCreate = false; // Set only when an entity is created with expired
-
-    @Transient
-    public boolean isIgnoreExpiredOnCreate() {
-        return ignoreExpiredOnCreate;
-    }
-
     @Version
     @Column(name = "OPTIMISTIC_LOCK_NO")
+    @Override
     public Long getVersion() {
         return version;
     }
 
+    @Override
     public void setVersion(Long version) {
         this.version = version;
     }
 
+    @Override
+    public boolean isVersioned() {
+        return true;
+    }
+
+    @Column(name = "EXPIRED_FLG")
+    @org.hibernate.annotations.Type(type = "yes_no")
+    public Boolean getIsExpired() {
+        return isExpired;
+    }
+
+    public void setIsExpired(Boolean isExpired) {
+        this.isExpired = isExpired;
+    }
+
+    @Transient
+    public EntityState getEntityState() {
+        if (recentHistory != null)
+            return EntityState.MODIFIED;
+
+        return EntityState.UNMODIFIED;
+    }
+
     public void createWith(IEntitySnapshot snapshot) {
-//        if (snapshot.getEntityMode() != null) {
-//            if (snapshot.getEntityMode() == EntityMode.EXPIRED) {
-//                isExpired = Boolean.TRUE;
-//                ignoreExpiredOnCreate = true;
-//            }
-//        }
+        if (snapshot.getEntityState() != null
+                && snapshot.getEntityState() == EntityState.EXPIRE) {
+            isExpired = Boolean.TRUE;
+
+        }
     }
 
     public void updateWith(IEntitySnapshot snapshot) {
-
         if (isExpired) {
             throw new ApplicationRuntimeException(TransactionErrorCode.ILLEGAL_UPDATE_EXPIRED_ENTITY.getCode());
         }
 
         if (snapshot.isVersioned() && this.getVersion() != null) {
-            if (this.getVersion() != snapshot.getVersion()) {
+            if (!Objects.equals(this.getVersion(), snapshot.getVersion())) {
                 logger.error("Entity version: " + this.getVersion() + " is not equal to update version: " + snapshot.getVersion());
                 throw new ApplicationRuntimeException(TransactionErrorCode.STALE_UPDATE_VERSION_FAIL.getCode());
             }
-        }
-    }
-
-    @Transient
-    public BusinessKey getBusinessKey() {
-        if (getId() == null) {
-            return null;
-        } else {
-            return new BusinessKey(getId());
         }
     }
 
@@ -91,7 +98,7 @@ public abstract class TemporalAbstractEntity extends AbstractIdEntity implements
          * Persists/Inserts the primary entity and audit entity
          * (i.e. saves the records) to the database. DTML.
          */
-        getBaseDAO().saveWithHistory(this, newHistory);
+        getBaseDAO().saveWithHistory(newHistory);
     }
 
     protected void wrapValidate() {
@@ -102,105 +109,6 @@ public abstract class TemporalAbstractEntity extends AbstractIdEntity implements
             throw new ApplicationRuntimeException(validationException);
         }
     }
-//
-//    @Transient
-//    public EntityMode getEntityMode() {
-//        if (isExpired == true)
-//            return EntityMode.EXPIRED;
-//        else
-//            return EntityMode.UPDATEABLE;
-//    }
-//
-//    @Transient
-//    public EntityState getEntityState() {
-//        if (recentHistory != null)
-//            return EntityState.MODIFIED;
-//
-//        return EntityState.UNMODIFIED;
-//    }
-
-    @Column(name = "EXPIRED_FLG")
-    @org.hibernate.annotations.Type(type = "yes_no")
-    public Boolean getIsExpired() {
-        return isExpired;
-    }
-
-    /**
-     * Use the <code>expire</code> method to expire an entity.
-     * Only use the property setter if generating entities in
-     * memory for test purposes.
-     *
-     * @param isExpired
-     */
-    public void setIsExpired(Boolean isExpired) {
-        this.isExpired = isExpired;
-    }
-
-    /**
-     * Save a list of abstract entities within the same transaction
-     *
-     * @param entities
-     */
-    public static void save(List<AbstractIdEntity> entities) {
-        getBaseDAO().save(entities);
-    }
-
-    public void expire() {
-        if (this.isExpired) {
-            // Don't try to expire an already expired entity.
-            return;
-        }
-
-//        if (hasUniqueCodeProperty())
-//            modifyUniqueCodeNameOnExpiry();
-
-        this.isExpired = true;
-        generateHistory();
-        ExpiryPolicy expirePolicy = getBaseDAO().getExpiryPolicy(this.getClass().getSimpleName());
-        expirePolicy.cascadeExpire(this);
-        if (expirePolicy.isDeleteOnExpiry())
-            getBaseDAO().delete(this);
-    }
-//
-//    private void modifyUniqueCodeNameOnExpiry() {
-//        UniqueNameModifier uniqueNameModifier = new UniqueNameModifier(
-//                fetchQueryEntityName(),
-//                fetchUniqueCodeQueryProperty(),
-//                fetchUniqueCodePropertyMaximumLength());
-//
-//        String codeSetToExpired = uniqueNameModifier.modifyCode(
-//                fetchUniqueCodeForExpiry(),
-//                UniqueNameModifier.EXPIRED_SUFFIX);
-//
-//        if (codeSetToExpired == null)
-//            throw new ApplicationRuntimeException(CoreTransactionErrorCode.SYSTEM_FAILURE.getCode());
-//
-//        setModifiedUniqueCodeOnExpiry(codeSetToExpired);
-//    }
-//
-//    /**
-//     * Override the next four methods if this domain object has a unique code or name that will be set to expired.
-//     *
-//     * @return
-//     */
-//    protected QueryProperty fetchUniqueCodeQueryProperty() {
-//        return null;
-//    }
-//
-//    protected boolean hasUniqueCodeProperty() {
-//        return fetchUniqueCodeQueryProperty() != null;
-//    }
-
-    protected String fetchUniqueCodeForExpiry() {
-        return null;
-    }
-
-    protected void setModifiedUniqueCodeOnExpiry(String modifiedCode) {
-    }
-
-    protected int fetchUniqueCodePropertyMaximumLength() {
-        return 20;
-    }
 
     /**
      * Triggers the update mechanism which includes validation and the creation of history.
@@ -208,6 +116,19 @@ public abstract class TemporalAbstractEntity extends AbstractIdEntity implements
     public void update() {
         super.update();
         generateHistory();
+    }
+
+    public void expire() {
+        if (this.isExpired) {
+            return;
+        }
+
+        this.isExpired = true;
+        generateHistory();
+        ExpiryPolicy expirePolicy = getBaseDAO().getExpiryPolicy(this.getClass().getSimpleName());
+        expirePolicy.cascadeExpire(this);
+        if (expirePolicy.isDeleteOnExpiry())
+            getBaseDAO().delete(this);
     }
 
     /**
@@ -228,7 +149,6 @@ public abstract class TemporalAbstractEntity extends AbstractIdEntity implements
             newHistory = createHistory();
             if (newHistory != null) {
                 getBaseDAO().save(newHistory);
-
             }
         }
         if (newHistory != null) {
@@ -284,4 +204,8 @@ public abstract class TemporalAbstractEntity extends AbstractIdEntity implements
 
     @Transient
     public abstract String fetchQueryEntityName();
+
+    protected static AuditManager getAuditManager() {
+        return ApplicationContextFactory.getBean(AuditManager.class);
+    }
 }

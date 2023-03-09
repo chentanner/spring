@@ -1,8 +1,6 @@
 package com.sss.app.core.entity.snapshot;
 
-import com.sss.app.core.entity.model.VersionedEntity;
-
-public interface IEntitySnapshot extends VersionedEntity {
+public interface IEntitySnapshot extends VersionedEntitySnapshot {
 
     public BusinessKey getBusinessKey();
 

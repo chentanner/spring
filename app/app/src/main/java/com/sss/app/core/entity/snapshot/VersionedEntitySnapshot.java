@@ -1,13 +1,13 @@
-package com.sss.app.core.entity.model;
+package com.sss.app.core.entity.snapshot;
 
 import com.sss.app.core.entity.enums.EntityState;
 
-public interface VersionedEntity extends IEntity {
+public interface VersionedEntitySnapshot {
     public Long getVersion();
 
     public boolean isVersioned();
 
-    public void setVersion(Long version);
+    public void setVersion(long version);
 
     public EntityState getEntityState();
 

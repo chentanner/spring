@@ -84,6 +84,12 @@ public class ErrorMessageLang extends AbstractEntity implements Serializable {
                 FIND_ALL,
                 queryParameters);
     }
+
+    @Override
+    @Transient
+    public String getEntityName() {
+        return "ErrorMessageLang";
+    }
 }
 
 
