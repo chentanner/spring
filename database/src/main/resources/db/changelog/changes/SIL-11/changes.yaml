@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - include:
+      file: createDinoFamilyTable.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: AddColumnDinoFamilySkToDino.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: AddDinoFamilyFkToDino.yaml
+      relativeToChangelogFile: true

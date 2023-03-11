@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: createDinoFamilyTable
+      author: chent (generated)
+      changes:
+        - createTable:
+            tableName: DINO_FAMILY
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: DinoFamilyPK
+                  name: DINO_FAMILY_SK
+                  type: BIGINT
+              - column:
+                  name: NAME
+                  type: VARCHAR(255)
+  - changeSet:
+      id: addUniqueConstraintToDinoFamily
+      author: chent (generated)
+      changes:
+        - addUniqueConstraint:
+            columnNames: name
+            constraintName: UC_DINO_FAMILY_NAMES
+            tableName: DINO_FAMILY
+

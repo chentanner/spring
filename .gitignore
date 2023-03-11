@@ -35,3 +35,4 @@ target/
 gradle.properties
 application.properties
 /gradle/wrapper/
+/app/app/src/test/resources/application-int.properties

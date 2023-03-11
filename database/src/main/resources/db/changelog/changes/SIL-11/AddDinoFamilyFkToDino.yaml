@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: AddDinoFamilyFkToDino
+      author: chent (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: DINO_FAMILY_SK
+            baseTableName: DINO
+            constraintName: DINO_TO_DINO_FAMILY_FK
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: "RESTRICT"
+            onUpdate: "NO ACTION"
+            referencedColumnNames: DINO_FAMILY_SK
+            referencedTableName: DINO_FAMILY

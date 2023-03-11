@@ -19,8 +19,12 @@ public class Dino extends AbstractIdEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "DINO_FAMILY_SK")
+    private DinoFamily dinoFamily;
+
     @Embedded
-    private DinoDetail detail;
+    private DinoDetail detail = new DinoDetail();
 
     public Dino() {
     }
@@ -31,6 +35,14 @@ public class Dino extends AbstractIdEntity {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public DinoFamily getDinoFamily() {
+        return dinoFamily;
+    }
+
+    public void setDinoFamily(DinoFamily dinoFamily) {
+        this.dinoFamily = dinoFamily;
     }
 
     public DinoDetail getDetail() {
@@ -45,6 +57,7 @@ public class Dino extends AbstractIdEntity {
     public String toString() {
         return "Dino{" +
                 "id=" + id +
+                ", dinoFamily=" + dinoFamily +
                 ", detail=" + detail +
                 '}';
     }

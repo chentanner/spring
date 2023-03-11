@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: addColumnDinoFamilySkToDino
+      author: chent (generated)
+      changes:
+        - addColumn:
+            tableName: DINO
+            columns:
+              - column:
+                  name: DINO_FAMILY_SK
+                  type: BIGINT
