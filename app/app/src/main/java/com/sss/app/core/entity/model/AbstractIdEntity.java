@@ -4,7 +4,7 @@ import com.sss.app.core.entity.snapshot.BusinessKey;
 
 import javax.persistence.Transient;
 
-public abstract class AbstractIdEntity extends AbstractEntity implements IEntity {
+public abstract class AbstractIdEntity extends AbstractEntity implements IdEntity {
     public abstract Integer getId();
 
     @Transient

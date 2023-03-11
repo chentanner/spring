@@ -35,7 +35,19 @@ public enum TransactionErrorCode {
     QUERY_PROPERTY_DOES_NOT_EXIST                           ("APP-010501"),
     INVALID_QUERY_TEXT_INVALID_WHERE                        ("APP-010502"),
     UNSUPPORTED_ELEMENT                                     ("APP-010503"),
+    INVALID_QUERY_TEXT_UNMATCHED_BRACKETS                   ("APP-010504"),
+    INVALID_QUERY_TEXT_MISSING_PROPERTY                     ("APP-010505"),
+    INVALID_QUERY_PROPERTY_ENTITY                           ("APP-010506"),
+    INVALID_QUERY_TEXT_BAD_SYNTAX                           ("APP-010507"),
+    INVALID_QUERY_TEXT_ENTITY_NAMES_MISMATCH                ("APP-010508"),
+    INVALID_QUERY_TEXT_INVALID_OPERATOR                     ("APP-010509"),
+    INVALID_QUERY_TEXT_QUERY_FAILED                         ("APP-010510"),
+    INVALID_QUERY_TEXT_MISSING_PARAM                        ("APP-010511"),
+    INVALID_QUERY_TEXT_INVALID_PARAMETER                    ("APP-010512"),
 
+
+
+    AUTHENTICATION_ERROR                                    ("APP-010600"),
 
 
     MISSING_BUSINESS_KEY                                    ("APP-100100"),
