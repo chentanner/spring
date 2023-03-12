@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QueryCriteria {
+public class QueryCriteria<T> {
 
     private static final long serialVersionUID = 1L;
 
@@ -18,22 +18,38 @@ public class QueryCriteria {
             "                        entity.auditComments) ";
 
     protected String queryEntityName;
+    protected Class<T> queryEntityClass;
     private boolean isAudit = false;
     protected JoinClause joinClause = new JoinClause();
     protected WhereClause whereClause = new WhereClause(joinClause);
     protected OrderClause orderClause = new OrderClause();
 
-    private QueryCriteria secondaryQueryCriteria;
+    //    private QueryCriteria<T> secondaryQueryCriteria;
     private int maxResults = -1;
 
     private List<QueryProperty> selectProperties = new ArrayList<>();
 
+    public QueryCriteria() {
+    }
+
+
+    public QueryCriteria(Class<T> clazz) {
+        this.queryEntityName = clazz.getTypeName();
+        this.queryEntityClass = clazz;
+        whereClause.setQueryEntityName(this.queryEntityName);
+    }
+
     @JsonIgnore
     public boolean hasSelectionCriteria() {
-        if (whereClause.hasSelectionCriteria() || orderClause.hasOrderByCriteria())
-            return true;
-        else
-            return false;
+        return whereClause.hasSelectionCriteria() || orderClause.hasOrderByCriteria();
+    }
+
+    public String getQueryEntityName() {
+        return queryEntityName;
+    }
+
+    public Class<T> getQueryEntityClass() {
+        return queryEntityClass;
     }
 
     @JsonIgnore
@@ -58,24 +74,18 @@ public class QueryCriteria {
         this.maxResults = setMaxResults;
     }
 
-    public QueryCriteria() {
-    }
-
-    public boolean hasSecondaryQueryCriteria() {
-        return secondaryQueryCriteria != null;
-    }
-
-    public QueryCriteria getSecondaryQueryCriteria() {
-        return secondaryQueryCriteria;
-    }
-
-    public String getQueryEntityName() {
-        return queryEntityName;
-    }
-
-    public void setSecondaryQueryCriteria(QueryCriteria secondaryQueryCriteria) {
-        this.secondaryQueryCriteria = secondaryQueryCriteria;
-    }
+//    public boolean hasSecondaryQueryCriteria() {
+//        return secondaryQueryCriteria != null;
+//    }
+//
+//    public QueryCriteria getSecondaryQueryCriteria() {
+//        return secondaryQueryCriteria;
+//    }
+//
+//
+//    public void setSecondaryQueryCriteria(QueryCriteria secondaryQueryCriteria) {
+//        this.secondaryQueryCriteria = secondaryQueryCriteria;
+//    }
 
 
     public JoinClause getJoinClause() {
@@ -86,7 +96,7 @@ public class QueryCriteria {
         this.joinClause = joinClause;
     }
 
-    public void copyFrom(QueryCriteria queryCriteriaFrom) {
+    public void copyFrom(QueryCriteria<T> queryCriteriaFrom) {
         this.queryEntityName = queryCriteriaFrom.queryEntityName;
         whereClause.setQueryEntityName(this.queryEntityName);
         this.whereClause.copyFrom(queryCriteriaFrom.getWhereClause());
@@ -95,10 +105,10 @@ public class QueryCriteria {
         this.isAudit = queryCriteriaFrom.isAudit;
         selectProperties = new ArrayList<>();
         selectProperties.addAll(queryCriteriaFrom.getSelectProperties());
-        if (queryCriteriaFrom.hasSecondaryQueryCriteria()) {
-            secondaryQueryCriteria = new QueryCriteria();
-            secondaryQueryCriteria.copyFrom(queryCriteriaFrom.getSecondaryQueryCriteria());
-        }
+//        if (queryCriteriaFrom.hasSecondaryQueryCriteria()) {
+//            secondaryQueryCriteria = new QueryCriteria();
+//            secondaryQueryCriteria.copyFrom(queryCriteriaFrom.getSecondaryQueryCriteria());
+//        }
     }
 
     public void replaceParams(List<?> replacementParams) {
@@ -108,67 +118,62 @@ public class QueryCriteria {
     public void replaceParam(int position, Object replacementParam) {
         whereClause.replaceParam(position, replacementParam);
     }
+//
+//    public QueryCriteria(String queryEntityName, String secondaryQueryEntityName) {
+//        this(queryEntityName);
+//        secondaryQueryCriteria = new QueryCriteria(secondaryQueryEntityName);
+//    }
+//
+//    public QueryCriteria(String queryEntityName, OrderExpression orderExpression) {
+//        this.queryEntityName = queryEntityName;
+//        whereClause.setQueryEntityName(this.queryEntityName);
+//        this.addOrderExpression(orderExpression);
+//    }
+//
+//    public QueryCriteria(String queryEntityName, OrderExpression[] orderExpressions) {
+//        this.queryEntityName = queryEntityName;
+//        whereClause.setQueryEntityName(this.queryEntityName);
+//        if (orderExpressions != null) {
+//            for (OrderExpression orderExpression : orderExpressions) {
+//                this.addOrderExpression(orderExpression);
+//            }
+//        }
+//    }
+//
+//    public QueryCriteria(
+//            String queryEntityName,
+//            WhereExpression[] addExpressions,
+//            WhereExpression[] addAndExpressions,
+//            WhereExpression[] addOrExpressions,
+//            OrderExpression[] orderExpressions) {
+//        this.queryEntityName = queryEntityName;
+//        whereClause.setQueryEntityName(this.queryEntityName);
+//        if (addExpressions != null) {
+//            for (WhereExpression addExpression : addExpressions) {
+//                this.getWhereClause().addExpression(addExpression);
+//            }
+//        }
+//        if (addAndExpressions != null) {
+//            for (WhereExpression addAndExpression : addAndExpressions) {
+//                this.getWhereClause().addAndExpression(addAndExpression);
+//            }
+//        }
+//        if (addOrExpressions != null) {
+//            for (WhereExpression addOrExpression : addOrExpressions) {
+//                this.getWhereClause().addOrExpression(addOrExpression);
+//            }
+//        }
+//        if (orderExpressions != null) {
+//            for (OrderExpression orderExpression : orderExpressions) {
+//                this.addOrderExpression(orderExpression);
+//            }
+//        }
+//    }
 
-    public QueryCriteria(String queryEntityName) {
-        this.queryEntityName = queryEntityName;
-        whereClause.setQueryEntityName(this.queryEntityName);
-    }
-
-    public QueryCriteria(String queryEntityName, String secondaryQueryEntityName) {
-        this(queryEntityName);
-        secondaryQueryCriteria = new QueryCriteria(secondaryQueryEntityName);
-    }
-
-    public QueryCriteria(String queryEntityName, OrderExpression orderExpression) {
-        this.queryEntityName = queryEntityName;
-        whereClause.setQueryEntityName(this.queryEntityName);
-        this.addOrderExpression(orderExpression);
-    }
-
-    public QueryCriteria(String queryEntityName, OrderExpression[] orderExpressions) {
-        this.queryEntityName = queryEntityName;
-        whereClause.setQueryEntityName(this.queryEntityName);
-        if (orderExpressions != null) {
-            for (OrderExpression orderExpression : orderExpressions) {
-                this.addOrderExpression(orderExpression);
-            }
-        }
-    }
-
-    public QueryCriteria(
-            String queryEntityName,
-            WhereExpression[] addExpressions,
-            WhereExpression[] addAndExpressions,
-            WhereExpression[] addOrExpressions,
-            OrderExpression[] orderExpressions) {
-        this.queryEntityName = queryEntityName;
-        whereClause.setQueryEntityName(this.queryEntityName);
-        if (addExpressions != null) {
-            for (WhereExpression addExpression : addExpressions) {
-                this.getWhereClause().addExpression(addExpression);
-            }
-        }
-        if (addAndExpressions != null) {
-            for (WhereExpression addAndExpression : addAndExpressions) {
-                this.getWhereClause().addAndExpression(addAndExpression);
-            }
-        }
-        if (addOrExpressions != null) {
-            for (WhereExpression addOrExpression : addOrExpressions) {
-                this.getWhereClause().addOrExpression(addOrExpression);
-            }
-        }
-        if (orderExpressions != null) {
-            for (OrderExpression orderExpression : orderExpressions) {
-                this.addOrderExpression(orderExpression);
-            }
-        }
-    }
-
-    public void setQueryEntityName(String queryEntityName) {
-        this.queryEntityName = queryEntityName;
-        whereClause.setQueryEntityName(this.queryEntityName);
-    }
+//    public void setQueryEntityName(String queryEntityName) {
+//        this.queryEntityName = queryEntityName;
+//        whereClause.setQueryEntityName(this.queryEntityName);
+//    }
 
     public WhereClause getWhereClause() {
         return whereClause;
@@ -363,11 +368,11 @@ public class QueryCriteria {
                 whereClause.toString() + " " + orderClause.toString();
     }
 
-    @JsonIgnore
-    public void setAuditQueryEntity(String primaryEntity) {
-        this.queryEntityName = primaryEntity;
-        isAudit = true;
-    }
+//    @JsonIgnore
+//    public void setAuditQueryEntity(String primaryEntity) {
+//        this.queryEntityName = primaryEntity;
+//        isAudit = true;
+//    }
 
     public List<QueryProperty> getSelectProperties() {
         return selectProperties;

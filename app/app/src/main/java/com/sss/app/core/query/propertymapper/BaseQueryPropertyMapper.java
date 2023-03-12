@@ -23,8 +23,8 @@ public class BaseQueryPropertyMapper implements QueryPropertyMapper {
                 .collect(Collectors.toList());
     }
 
-    public void addQueryPropertyMap(String queryEntityDomainName, BaseQueryProperties baseQueryProperties) {
-        queryEntityToQueryMap.put(queryEntityDomainName, baseQueryProperties);
+    public void addQueryPropertyMap(BaseQueryProperties baseQueryProperties) {
+        queryEntityToQueryMap.put(baseQueryProperties.fetchQueryEntityName(), baseQueryProperties);
     }
 
     public Map<String, QueryProperty> getQueryMap(String queryEntityName) {

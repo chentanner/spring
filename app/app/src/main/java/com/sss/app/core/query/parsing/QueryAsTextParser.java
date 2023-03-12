@@ -14,31 +14,31 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QueryAsTextParser extends QueryAsTextBaseEvaluator {
+public class QueryAsTextParser<T> extends QueryAsTextBaseEvaluator<T> {
     private static final Logger logger = LogManager.getLogger();
 
     public QueryAsTextParser() {
     }
 
-    public QueryAsTextParser(String queryEntityName) {
-        super(queryEntityName);
+    public QueryAsTextParser(Class<T> queryEntityClass) {
+        super(queryEntityClass);
     }
 
-    public QueryCriteria parse(String expressionText) {
+    public QueryCriteria<T> parse(String expressionText) {
 
         String trimmedText = expressionText.trim();
         if (trimmedText.equals(""))
-            return new QueryCriteria(queryEntityName);
+            return new QueryCriteria<>(queryEntityClass);
 
         QueryAsTextInitialEvaluation evaluation = super.parseExpression(expressionText);
 
-        QueryCriteria queryCriteria;
+        QueryCriteria<T> queryCriteria;
 
         if (evaluation.hasFromVerb) {
             String fromText = trimmedText.substring(evaluation.indexOfFrom + 5, evaluation.endOfFrom);
             queryCriteria = buildFromClause(fromText);
         } else {
-            queryCriteria = new QueryCriteria(queryEntityName);
+            queryCriteria = new QueryCriteria<>(queryEntityClass);
         }
 
         if (!evaluation.hasOrderByClause && !evaluation.hasWhereClause) {
@@ -49,7 +49,7 @@ public class QueryAsTextParser extends QueryAsTextBaseEvaluator {
                                                           expressionText);
             }
 
-            return new QueryCriteria(queryEntityName);
+            return new QueryCriteria<>(queryEntityClass);
         }
 
         if (evaluation.hasJoinVerb) {
@@ -91,7 +91,7 @@ public class QueryAsTextParser extends QueryAsTextBaseEvaluator {
         return queryCriteria;
     }
 
-    private QueryCriteria buildFromClause(String fromText) throws ApplicationRuntimeException {
+    private QueryCriteria<T> buildFromClause(String fromText) throws ApplicationRuntimeException {
         String queryEntityNameStr = fromText.trim();
         if (queryEntityName != null) {
             if (!queryEntityName.equals(queryEntityNameStr.trim()))
@@ -101,10 +101,10 @@ public class QueryAsTextParser extends QueryAsTextBaseEvaluator {
             queryEntityName = queryEntityNameStr.trim();
         }
 
-        return new QueryCriteria(queryEntityName);
+        return new QueryCriteria<>(queryEntityClass);
     }
 
-    private void buildOrderClause(QueryCriteria queryCriteria, String orderByText) throws ApplicationRuntimeException {
+    private void buildOrderClause(QueryCriteria<T> queryCriteria, String orderByText) throws ApplicationRuntimeException {
 
         String[] orderExpressions = orderByText.split(",");
 
@@ -150,7 +150,7 @@ public class QueryAsTextParser extends QueryAsTextBaseEvaluator {
     }
 
     private void buildWhereClause(
-            QueryCriteria queryCriteria,
+            QueryCriteria<T> queryCriteria,
             String expressionText) throws ApplicationRuntimeException {
 
         QueryAsTextReader reader;
@@ -194,7 +194,7 @@ public class QueryAsTextParser extends QueryAsTextBaseEvaluator {
     }
 
     public void buildExpressions(
-            QueryCriteria queryCriteria,
+            QueryCriteria<T> queryCriteria,
             List<ParsingQueryNode> nodes) throws ApplicationRuntimeException {
         int openCount = 0;
         int closeCount = 0;

@@ -15,12 +15,8 @@ public class DinoRepositoryBean extends EntityRepository<Dino> implements DinoRe
     }
 
     @Override
-    public Dino load(int id) {
-        return super.load(id);
-    }
-
-    public List<Dino> fetchAll() {
-        return super.fetchAll(Dino.FETCH_ALL_DINOS);
+    public List<Dino> fetchAllDinos() {
+        return executeQuery(Dino.FETCH_ALL_DINOS);
     }
 }
 

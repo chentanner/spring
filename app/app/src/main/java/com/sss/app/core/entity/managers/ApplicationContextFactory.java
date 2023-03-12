@@ -3,7 +3,7 @@ package com.sss.app.core.entity.managers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
-import org.hibernate.jpa.HibernateEntityManagerFactory;
+import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.orm.jpa.EntityManagerHolder;
@@ -14,7 +14,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 
 public class ApplicationContextFactory {
-    private static Logger logger = LogManager.getLogger(ApplicationContextFactory.class);
+    private static final Logger logger = LogManager.getLogger();
     private static ApplicationContext applicationContext;
     private static boolean isTest = false;
 
@@ -94,9 +94,7 @@ public class ApplicationContextFactory {
     }
 
     public static SessionFactory getSessionFactory() {
-        EntityManagerFactory entityManagerFactory = getEntityManagerFactory();
-        HibernateEntityManagerFactory hFactory = (HibernateEntityManagerFactory) entityManagerFactory;
-        return hFactory.getSessionFactory();
+        return (SessionFactoryImplementor) getEntityManagerFactory();
     }
 
     public static void flushIfInSession() {

@@ -8,6 +8,7 @@ import com.sss.app.core.enums.TransactionErrorCode;
 import com.sss.app.core.exception.ApplicationRuntimeException;
 import com.sss.app.core.query.QueryParameter;
 import com.sss.app.core.query.QueryParameters;
+import com.sss.app.core.query.expressions.QueryCriteria;
 import com.sss.app.core.snapshot.SimpleListItem;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
@@ -124,56 +125,68 @@ public class BaseRepository {
         return query.getResultList().get(0);
     }
 
-    //    public List<? extends AbstractEntity> executeEntityQueryCriteria(QueryCriteria queryCriteria) {
-//        Query query = entityManager.createQuery(queryCriteria.generateEntityQuery());
-//        if (queryCriteria.getMaxResults() > 0)
-//            query.setMaxResults(queryCriteria.getMaxResults());
-//
-//        if (queryCriteria.getWhereClause().hasQueryParameters()) {
-//            for (Map.Entry<String, ?> entry : queryCriteria.getWhereClause().getQueryParameters().entrySet()) {
-//                query.setParameter(entry.getKey(), entry.getValue());
-//            }
-//        }
-//        return query.getResultList();
-//    }
-//
-//    public List<? extends CodeEntity> executeCodeQueryCriteria(QueryCriteria queryCriteria) {
-//        Query query = entityManager.createQuery(queryCriteria.generateEntityQuery());
-//        if (queryCriteria.getMaxResults() > 0)
-//            query.setMaxResults(queryCriteria.getMaxResults());
-//
-//        if (queryCriteria.getWhereClause().hasQueryParameters()) {
-//            for (Map.Entry<String, ?> entry : queryCriteria.getWhereClause().getQueryParameters().entrySet()) {
-//                query.setParameter(entry.getKey(), entry.getValue());
-//            }
-//        }
-//        return query.getResultList();
-//    }
-//    public Integer executeCountQueryCriteria(QueryCriteria queryCriteria) {
-//        Query query = entityManager.createQuery(queryCriteria.generateQueryForCount());
-//
-//        if (queryCriteria.getWhereClause().hasQueryParameters()) {
-//            for (Map.Entry<String, ?> entry : queryCriteria.getWhereClause().getQueryParameters().entrySet()) {
-//                query.setParameter(entry.getKey(), entry.getValue());
-//            }
-//        }
-//
-//        return ((Long) query.getSingleResult()).intValue();
-//    }
-//    public List<Integer> executeIdQueryCriteria(QueryCriteria queryCriteria) {
-//        Query query = entityManager.createQuery(queryCriteria.generateQueryForIds());
-//
-//        if (queryCriteria.getWhereClause().hasQueryParameters()) {
-//            for (Map.Entry<String, ?> entry : queryCriteria.getWhereClause().getQueryParameters().entrySet()) {
-//                query.setParameter(entry.getKey(), entry.getValue());
-//            }
-//        }
-//
-//        if (queryCriteria.isSetMaxResults())
-//            query.setMaxResults(queryCriteria.getMaxResults());
-//
-//        return query.getResultList();
-//    }
+    public <T> List<T> executeEntityQueryCriteria(QueryCriteria<T> queryCriteria) {
+        TypedQuery<T> query = entityManager.createQuery(queryCriteria.generateEntityQuery(),
+                                                        queryCriteria.getQueryEntityClass());
+        if (queryCriteria.getMaxResults() > 0)
+            query.setMaxResults(queryCriteria.getMaxResults());
+
+        if (queryCriteria.getWhereClause().hasQueryParameters()) {
+            for (Map.Entry<String, ?> entry : queryCriteria.getWhereClause().getQueryParameters().entrySet()) {
+                query.setParameter(entry.getKey(), entry.getValue());
+            }
+        }
+        return query.getResultList();
+    }
+
+    public <T> T executeSingleResultEntityQueryCriteria(QueryCriteria<T> queryCriteria) {
+        TypedQuery<T> query = entityManager.createQuery(queryCriteria.generateEntityQuery(),
+                                                        queryCriteria.getQueryEntityClass());
+        if (queryCriteria.getMaxResults() > 0)
+            query.setMaxResults(queryCriteria.getMaxResults());
+
+        if (queryCriteria.getWhereClause().hasQueryParameters()) {
+            for (Map.Entry<String, ?> entry : queryCriteria.getWhereClause().getQueryParameters().entrySet()) {
+                query.setParameter(entry.getKey(), entry.getValue());
+            }
+        }
+
+        List<T> results = query.getResultList();
+        if (results.size() == 1)
+            return results.get(0);
+        else if (results.size() == 0)
+            return null;
+        else
+            throw new ApplicationRuntimeException(TransactionErrorCode.MORE_THAN_ONE_OBJECT_RETURNED_QUERY.getCode());
+    }
+
+    public <T> Integer executeCountQueryCriteria(QueryCriteria<T> queryCriteria) {
+        Query query = entityManager.createQuery(queryCriteria.generateQueryForCount());
+
+        if (queryCriteria.getWhereClause().hasQueryParameters()) {
+            for (Map.Entry<String, ?> entry : queryCriteria.getWhereClause().getQueryParameters().entrySet()) {
+                query.setParameter(entry.getKey(), entry.getValue());
+            }
+        }
+
+        return ((Long) query.getSingleResult()).intValue();
+    }
+
+    public List<Integer> executeIdQueryCriteria(QueryCriteria<?> queryCriteria) {
+        TypedQuery<Integer> query = entityManager.createQuery(queryCriteria.generateQueryForIds(), Integer.class);
+
+        if (queryCriteria.getWhereClause().hasQueryParameters()) {
+            for (Map.Entry<String, ?> entry : queryCriteria.getWhereClause().getQueryParameters().entrySet()) {
+                query.setParameter(entry.getKey(), entry.getValue());
+            }
+        }
+
+        if (queryCriteria.isSetMaxResults())
+            query.setMaxResults(queryCriteria.getMaxResults());
+
+        return query.getResultList();
+    }
+
 //    public List executePropertiesQueryCriteria(QueryCriteria queryCriteria, List<String> propertyNames) {
 //        Query query = entityManager.createQuery(queryCriteria.generateQueryForProperties(propertyNames));
 //

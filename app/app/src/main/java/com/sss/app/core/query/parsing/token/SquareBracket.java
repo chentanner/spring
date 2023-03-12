@@ -46,9 +46,9 @@ public enum SquareBracket {
         return lookup.get(code);
     }
 
-    private SquareBracket(Character opCode) {
+    private SquareBracket(char opCode) {
         this.code = opCode;
-        this.unicodeInt = new Integer(code);
+        this.unicodeInt = (int) code;
     }
 
     public Character getCode() {

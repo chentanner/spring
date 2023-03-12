@@ -44,7 +44,7 @@ public class QueryProperty implements Serializable, Comparable<QueryProperty> {
     private Function<String, String> convertNameToCodeFunction;
 
     private QueryPropertyHintFunction hintFunction;
-    private List parameters;
+    private List<Object> parameters;
 
     private Supplier<List<String>> generateCodeHintsFunction;
 
@@ -60,6 +60,9 @@ public class QueryProperty implements Serializable, Comparable<QueryProperty> {
         this.type = copyFrom.type;
         this.isFormula = copyFrom.isFormula;
         this.convertNameToCodeFunction = copyFrom.convertNameToCodeFunction;
+        this.hintFunction = copyFrom.hintFunction;
+        this.parameters = copyFrom.parameters;
+        this.generateCodeHintsFunction = copyFrom.generateCodeHintsFunction;
 
         if (copyFrom.valueTypeHintList != null) {
             this.valueTypeHintList = new ArrayList<>();
@@ -89,7 +92,7 @@ public class QueryProperty implements Serializable, Comparable<QueryProperty> {
             // "parameters" is before the method that accepts the parameters, which seems unnatural.
             // If the order is reversed, there is a collision with one of the other
             // constructors when the second to last parameter (aka parameters) in this constructor is null.
-            List parameters,
+            List<Object> parameters,
             QueryPropertyHintFunction hintFunction
     ) {
         super();
@@ -229,11 +232,11 @@ public class QueryProperty implements Serializable, Comparable<QueryProperty> {
         this.hintFunction = hintFunction;
     }
 
-    public List getParameters() {
+    public List<Object> getParameters() {
         return parameters;
     }
 
-    public void setParameters(List parameters) {
+    public void setParameters(List<Object> parameters) {
         this.parameters = parameters;
     }
 
@@ -399,12 +402,6 @@ public class QueryProperty implements Serializable, Comparable<QueryProperty> {
         return valueIn.toString();
     }
 
-    /**
-     * Convert to a string representation for inline sql
-     *
-     * @param valueIn
-     * @return
-     */
     public String convertToInline(
             Object valueIn
     ) {
@@ -640,14 +637,9 @@ public class QueryProperty implements Serializable, Comparable<QueryProperty> {
         QueryProperty other = (QueryProperty) obj;
 
         if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
+            return other.name == null;
         }
-
-        return true;
+        return name.equals(other.name);
     }
 
     public boolean contains(String prefix) {
@@ -683,5 +675,4 @@ public class QueryProperty implements Serializable, Comparable<QueryProperty> {
                 return false;
         }
     }
-
 }

@@ -1,14 +1,22 @@
 package com.sss.app.core.query.parsing;
 
+import com.sss.app.core.query.expressions.QueryCriteria;
 import com.sss.app.core.query.propertymapper.QueryPropertyMapper;
+import com.sss.app.dinos.model.Dino;
+import com.sss.app.dinos.repository.DinoRepository;
 import com.sss.app.test.TransactionalSpringTestCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 //@WithMockUser
 class QueryAsTextParserTest extends TransactionalSpringTestCase {
-    private static final Logger logger = LogManager.getLogger(QueryAsTextParserTest.class);
+    private static final Logger logger = LogManager.getLogger();
 
     @Autowired
     private QueryPropertyMapper queryPropertyMapper;
@@ -18,14 +26,23 @@ class QueryAsTextParserTest extends TransactionalSpringTestCase {
 
     }
 
-//    @Test
-//    public void parseWithReservedWordsFrom() {
-//
-//        QueryAsTextParser parser = new QueryAsTextParser(QueryEntityName.CONVERSION_FACTOR.getDomainName());
-//        QueryCriteria queryCriteria = parser.parse("WHERE fromUnitOfMeasure = 'GJ'");
-//        logger.error(queryCriteria.toExternalString());
-//    }
-//
+    @Test
+    public void parseWithReservedWordsFrom() {
+
+        Dino dino = new Dino();
+        String dinoName = "NewDino";
+        dino.getDetail().setName(dinoName);
+        dino.save();
+
+        QueryAsTextParser<Dino> parser = new QueryAsTextParser<>(Dino.class);
+        QueryCriteria<Dino> queryCriteria = parser.parse("WHERE name = '" + dinoName + "'");
+        logger.error(queryCriteria.toExternalString());
+
+        DinoRepository dinoRepository = getBean(DinoRepository.class);
+        List<Dino> dinos = dinoRepository.find(queryCriteria);
+        assertFalse(dinos.isEmpty());
+    }
+
 //    @Test
 //    public void parseWithJoins() {
 //

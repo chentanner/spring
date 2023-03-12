@@ -10,7 +10,7 @@ import com.sss.app.core.query.propertymapper.QueryPropertyMapper;
 
 import java.util.Map;
 
-public class QueryAsTextBaseEvaluator extends BaseTextParser {
+public class QueryAsTextBaseEvaluator<T> extends BaseTextParser {
     protected static final String WHERE = "WHERE";
     protected static final String JOIN = "JOIN";
     protected static final String OUTER_JOIN = "OUTER JOIN";
@@ -18,12 +18,14 @@ public class QueryAsTextBaseEvaluator extends BaseTextParser {
     protected static final String ORDER_BY = "ORDER BY";
 
     protected String queryEntityName;
+    protected Class<T> queryEntityClass;
 
     public QueryAsTextBaseEvaluator() {
     }
 
-    public QueryAsTextBaseEvaluator(String queryEntityName) {
-        this.queryEntityName = queryEntityName;
+    public QueryAsTextBaseEvaluator(Class<T> queryEntityClass) {
+        this.queryEntityClass = queryEntityClass;
+        this.queryEntityName = queryEntityClass.getTypeName();
     }
 
     protected QueryAsTextInitialEvaluation parseExpression(String expressionText) {
