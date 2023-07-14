@@ -9,6 +9,12 @@ public class DinoFamilyDetail {
     @Column(name = "NAME")
     private String name;
 
+    public DinoFamilyDetail() {
+    }
+
+    public DinoFamilyDetail(String name) {
+        this.name = name;
+    }
 
     public void shallowCopy(DinoFamilyDetail copyFrom) {
         this.setName(copyFrom.getName());
@@ -40,5 +46,26 @@ public class DinoFamilyDetail {
         return "DinoFamilyDetail{" +
                 "name='" + name + '\'' +
                 '}';
+    }
+
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private String name;
+
+        private Builder() {
+
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public DinoFamilyDetail build() {
+            return new DinoFamilyDetail(name);
+        }
     }
 }

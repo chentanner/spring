@@ -54,7 +54,7 @@ public abstract class AbstractEntitySnapshot extends AbstractIdSnapshot implemen
         this.entityState = entityState;
     }
 
-    public boolean isExpired() {
+    public Boolean isExpired() {
         return isExpired;
     }
 

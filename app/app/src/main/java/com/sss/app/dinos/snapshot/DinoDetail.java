@@ -1,10 +1,15 @@
 package com.sss.app.dinos.snapshot;
 
+import com.sss.app.core.exception.ApplicationValidationException;
+import com.sss.app.core.snapshot.BaseDetail;
+import com.sss.app.core.snapshot.BaseDetailBuilder;
+
 import javax.persistence.Column;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 
-public class DinoDetail {
+public class DinoDetail extends BaseDetail<DinoDetail> {
 
     @Column(name = "NAME")
     private String name;
@@ -18,11 +23,27 @@ public class DinoDetail {
     @Column(name = "WEIGHT_TONS")
     private double weightTons;
 
-    public void shallowCopy(DinoDetail copyFrom) {
+    public DinoDetail() {
+    }
+
+    public DinoDetail(String name, boolean fangs, int numberOfArms, double weightTons) {
+        this.name = name;
+        this.fangs = fangs;
+        this.numberOfArms = numberOfArms;
+        this.weightTons = weightTons;
+    }
+
+    @Override
+    public void shallowCopyFrom(DinoDetail copyFrom) {
         this.setName(copyFrom.getName());
         this.setFangs(copyFrom.hasFangs());
         this.setNumberOfArms(copyFrom.getNumberOfArms());
         this.setWeightTons(copyFrom.getWeightTons());
+    }
+
+    @Override
+    public void validate() throws ApplicationValidationException {
+
     }
 
     public String getName() {
@@ -81,5 +102,41 @@ public class DinoDetail {
                 ", numberOfArms=" + numberOfArms +
                 ", weightTons=" + weightTons +
                 '}';
+    }
+
+    public static class Builder extends BaseDetailBuilder<DinoDetail> {
+
+        private String name;
+        private boolean fangs;
+        private int numberOfArms;
+        private double weightTons;
+
+        private Builder() {
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withFangs(boolean fangs) {
+            this.fangs = fangs;
+            return this;
+        }
+
+        public Builder withNumberOfArms(int numberOfArms) {
+            this.numberOfArms = numberOfArms;
+            return this;
+        }
+
+        public Builder withWeightTons(double weightTons) {
+            this.weightTons = weightTons;
+            return this;
+        }
+
+        @Override
+        protected Supplier<DinoDetail> constructorSupplier() {
+            return DinoDetail::new;
+        }
     }
 }

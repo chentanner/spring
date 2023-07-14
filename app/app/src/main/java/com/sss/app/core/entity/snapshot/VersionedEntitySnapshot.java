@@ -11,5 +11,5 @@ public interface VersionedEntitySnapshot {
 
     public EntityState getEntityState();
 
-    public Boolean getIsExpired();
+    public Boolean isExpired();
 }
