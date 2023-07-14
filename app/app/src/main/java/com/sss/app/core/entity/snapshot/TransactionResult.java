@@ -23,7 +23,7 @@ public class TransactionResult extends BaseTransactionResult {
         return keys.stream()
                 .findFirst()
                 .orElse(BusinessKey.createNullBusinessKey())
-                .getId(); // TODO: I don't trust this on a null BK
+                .getId();
     }
 
     public List<Integer> getIds() {

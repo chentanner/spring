@@ -77,12 +77,6 @@ public class BaseRepository {
         return query.getResultList();
     }
 
-    //TODO:
-//        query.setMaxResults(1);
-//        query.setMaxResults(maxResults);
-//
-
-
     public List<SimpleListItem> executeSimpleListQuery(String queryName,
                                                        QueryParameters parameters) {
         TypedQuery<SimpleListItem> query = entityManager.createNamedQuery(queryName, SimpleListItem.class);
@@ -92,20 +86,6 @@ public class BaseRepository {
         return query.getResultList();
     }
 
-//    public List<SimpleListItem> executeSimpleListQueryFromQueryCriteria(
-//            QueryCriteria queryCriteria,
-//            String labelName,
-//            String descriptionName) {
-//
-//        Query query = entityManager.createQuery(queryCriteria.generateSimpleListQuery(labelName, descriptionName));
-//
-//        if (queryCriteria.getWhereClause().hasQueryParameters()) {
-//            for (Map.Entry<String, ?> entry : queryCriteria.getWhereClause().getQueryParameters().entrySet()) {
-//                query.setParameter(entry.getKey(), entry.getValue());
-//            }
-//        }
-//        return query.getResultList();
-//    }
 
     public Long executeNamedCountQuery(String queryName,
                                        QueryParameters parameters) {

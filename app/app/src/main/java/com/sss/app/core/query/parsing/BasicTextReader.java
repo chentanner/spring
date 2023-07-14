@@ -394,7 +394,7 @@ public class BasicTextReader {
      * <p>
      * It also checks for escaped single quotes inside a single quoted string
      * and treats them as a character within the quote to handle quoted token
-     * that contain single quotes (ex. 'o'mally').  The SAS standard for escaping
+     * that contain single quotes (ex. 'o'mally').  Escaping a
      * single quotes is 2 single quotes ('');
      */
     public String readExtendedQuotedToken() {
